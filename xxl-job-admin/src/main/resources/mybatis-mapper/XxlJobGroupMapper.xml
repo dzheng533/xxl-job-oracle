@@ -13,39 +13,37 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		t.id,
-		t.app_name,
-		t.title,
-		t.`order`,
-		t.address_type,
-		t.address_list
+		t.id,t.app_name,t.title,t."ORDER",t.address_type,t.address_list
 	</sql>
 
 	<select id="findAll" resultMap="XxlJobGroup">
 		SELECT <include refid="Base_Column_List" />
-		FROM xxl_job_group AS t
-		ORDER BY t.order ASC
+		FROM xxl_job_group t
+		ORDER BY t."ORDER" ASC
 	</select>
 
 	<select id="findByAddressType" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
 		SELECT <include refid="Base_Column_List" />
-		FROM xxl_job_group AS t
+		FROM xxl_job_group t
 		WHERE t.address_type = #{addressType}
-		ORDER BY t.order ASC
+		ORDER BY t."ORDER" ASC
 	</select>
 
-	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" useGeneratedKeys="true" keyProperty="id" >
-		INSERT INTO xxl_job_group ( `app_name`, `title`, `order`, `address_type`, `address_list`)
-		values ( #{appName}, #{title}, #{order}, #{addressType}, #{addressList});
+	<insert id="save" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" >
+		<selectKey resultType="int" order="BEFORE" keyProperty="id">
+			select SEQ_JOBGROUP.nextval from dual
+		</selectKey>
+		INSERT INTO xxl_job_group ( id, app_name, title, "ORDER", address_type, address_list)
+		values (#{id}, #{appName}, #{title}, #{order}, #{addressType}, #{addressList, jdbcType=VARCHAR})
 	</insert>
 
 	<update id="update" parameterType="com.xxl.job.admin.core.model.XxlJobGroup" >
 		UPDATE xxl_job_group
-		SET `app_name` = #{appName},
-			`title` = #{title},
-			`order` = #{order},
-			`address_type` = #{addressType},
-			`address_list` = #{addressList}
+		SET app_name = #{appName},
+			title = #{title},
+			"ORDER" = #{order},
+			address_type = #{addressType},
+			address_list = #{addressList, jdbcType=VARCHAR}
 		WHERE id = #{id}
 	</update>
 
@@ -56,7 +54,7 @@
 
 	<select id="load" parameterType="java.lang.Integer" resultMap="XxlJobGroup">
 		SELECT <include refid="Base_Column_List" />
-		FROM xxl_job_group AS t
+		FROM xxl_job_group t
 		WHERE t.id = #{id}
 	</select>
 

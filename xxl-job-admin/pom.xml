@@ -47,17 +47,23 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-		<!-- mybatis-starter：mybatis + mybatis-spring + tomcat-jdbc（default） -->
+		<!-- mybatis-starter：mybatis + mybatis-spring + druid -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>${mybatis-spring-boot-starter.version}</version>
 		</dependency>
-		<!-- mysql -->
+        <!-- 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+		<!-- Oracle -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql-connector-java.version}</version>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0.1</version>
 		</dependency>
 
 		<!-- xxl-job-core -->
@@ -87,9 +93,9 @@
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.13</version>
+				<version>1.2.0</version>
 				<configuration>
-					<!-- made of '[a-z0-9-_.]' -->
+					<dockerHost>http://10.10.1.116:2375</dockerHost>
 					<imageName>${project.artifactId}:${project.version}</imageName>
 					<dockerDirectory>${project.basedir}</dockerDirectory>
 					<resources>
@@ -101,6 +107,7 @@
 					</resources>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 

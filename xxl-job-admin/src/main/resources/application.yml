@@ -1,0 +1,61 @@
+### web
+server:
+  port: 9999
+  servlet:
+    context-path: /job-admin
+
+### resources
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+
+### freemarker
+  freemarker:
+    cache: true
+    templateLoaderPath: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings:
+      number_format: 0.##########
+
+  ### xxl-job, datasource
+  #Oracle 数据库配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: utax
+    password: Utax!23
+    url: jdbc:oracle:thin:@//127.0.0.1:1521/ORCLPDB1.localdomain
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  ### xxl-job email
+  mail:
+    host: smtp.qq.com
+    port: 25
+    username: xxx@qq.com
+    password: xxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: rtue
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
+xxl:
+  job:
+### xxl-job, access token
+    accessToken: accvvdd
+### xxl-job, i18n (默认留空白就是中文，"en" 表示英文语言)
+    i18n:
+### mybatis
+mybatis:
+  mapper-locations: classpath:/mybatis-mapper/*Mapper.xml
+### 日志配置
+logging:
+  config: classpath:logback-config.xml
+  path: job-logs
