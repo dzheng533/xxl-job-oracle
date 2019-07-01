@@ -306,10 +306,10 @@ public class XxlJobServiceImpl implements XxlJobService {
 		}*/
 
 		// process
-		List<String> triggerDayList = new ArrayList<String>();
-		List<Integer> triggerDayCountRunningList = new ArrayList<Integer>();
-		List<Integer> triggerDayCountSucList = new ArrayList<Integer>();
-		List<Integer> triggerDayCountFailList = new ArrayList<Integer>();
+		List<String> triggerDayList = new ArrayList<>();
+		List<Integer> triggerDayCountRunningList = new ArrayList<>();
+		List<Integer> triggerDayCountSucList = new ArrayList<>();
+		List<Integer> triggerDayCountFailList = new ArrayList<>();
 		int triggerCountRunningTotal = 0;
 		int triggerCountSucTotal = 0;
 		int triggerCountFailTotal = 0;
@@ -317,10 +317,10 @@ public class XxlJobServiceImpl implements XxlJobService {
 		List<Map<String, Object>> triggerCountMapAll = xxlJobLogDao.triggerCountByDay(startDate, endDate);
 		if (triggerCountMapAll!=null && triggerCountMapAll.size()>0) {
 			for (Map<String, Object> item: triggerCountMapAll) {
-				String day = String.valueOf(item.get("triggerDay"));
-				int triggerDayCount = Integer.valueOf(String.valueOf(item.get("triggerDayCount")));
-				int triggerDayCountRunning = Integer.valueOf(String.valueOf(item.get("triggerDayCountRunning")));
-				int triggerDayCountSuc = Integer.valueOf(String.valueOf(item.get("triggerDayCountSuc")));
+				String day = String.valueOf(item.get("triggerDay".toUpperCase()));
+				int triggerDayCount = Integer.valueOf(String.valueOf(item.get("triggerDayCount".toUpperCase())));
+				int triggerDayCountRunning = Integer.valueOf(String.valueOf(item.get("triggerDayCountRunning".toUpperCase())));
+				int triggerDayCountSuc = Integer.valueOf(String.valueOf(item.get("triggerDayCountSuc".toUpperCase())));
 				int triggerDayCountFail = triggerDayCount - triggerDayCountRunning - triggerDayCountSuc;
 
 				triggerDayList.add(day);

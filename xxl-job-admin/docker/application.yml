@@ -7,7 +7,7 @@ server:
 ### 日志配置
 logging:
   config: logback-config.xml
-  path: logs/job-admin.log
+  path: job-admin-logs
 
 ### resources
 spring:
@@ -59,7 +59,7 @@ xxl:
     ### xxl-job, access token
     accessToken: accvvdd
     ### xxl-job, i18n (default empty as chinese, "en" as english)
-    i18n: chinese
+    i18n:
 ### mybatis
 mybatis:
   mapper-locations: classpath:/mybatis-mapper/*Mapper.xml

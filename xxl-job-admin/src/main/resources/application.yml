@@ -33,9 +33,9 @@ spring:
   ### xxl-job email
   mail:
     host: smtp.qq.com
-    port: 25
-    username: xxx@qq.com
-    password: xxx
+    port: 465
+    username: 25734602@qq.com
+    password: lewmyiskutskbici
     properties:
       mail:
         smtp:
@@ -58,4 +58,4 @@ mybatis:
 ### 日志配置
 logging:
   config: classpath:logback-config.xml
-  path: job-logs
+  path: job-admin-logs
