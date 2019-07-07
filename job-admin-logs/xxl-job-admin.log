@@ -1,0 +1,27 @@
+2019-07-01 00:00:13,841 INFO [Thread-20] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java : 208] Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-01 00:00:14,005 INFO [xxl-job, admin JobScheduleHelper#scheduleThread] c.x.j.a.c.thread.JobScheduleHelper [JobScheduleHelper.java : 185] >>>>>>>>>>> xxl-job, JobScheduleHelper#scheduleThread stop
+2019-07-01 00:00:15,005 INFO [xxl-job, admin JobScheduleHelper#ringThread] c.x.j.a.c.thread.JobScheduleHelper [JobScheduleHelper.java : 246] >>>>>>>>>>> xxl-job, JobScheduleHelper#ringThread stop
+2019-07-01 00:00:15,356 ERROR [xxl-job, admin JobFailMonitorHelper] c.x.j.a.c.t.JobFailMonitorHelper [JobFailMonitorHelper.java : 187] >>>>>>>>>>> xxl-job, job fail alarm email send error, JobLogId:984
+org.springframework.mail.MailAuthenticationException: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535 Error: ÇëÊ¹ÓÃÊÚÈ¨ÂëµÇÂ¼¡£ÏêÇéÇë¿´: http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256
+
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:439)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:360)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:355)
+	at com.xxl.job.admin.core.thread.JobFailMonitorHelper.failAlarm(JobFailMonitorHelper.java:185)
+	at com.xxl.job.admin.core.thread.JobFailMonitorHelper.access$100(JobFailMonitorHelper.java:27)
+	at com.xxl.job.admin.core.thread.JobFailMonitorHelper$1.run(JobFailMonitorHelper.java:74)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: javax.mail.AuthenticationFailedException: 535 Error: ÇëÊ¹ÓÃÊÚÈ¨ÂëµÇÂ¼¡£ÏêÇéÇë¿´: http://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256
+
+	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:965)
+	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:876)
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:780)
+	at javax.mail.Service.connect(Service.java:366)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:517)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:436)
+	... 6 common frames omitted
+2019-07-01 00:00:15,858 INFO [Thread-20] c.x.j.a.c.thread.JobScheduleHelper [JobScheduleHelper.java : 321] >>>>>>>>>>> xxl-job, JobScheduleHelper stop
+2019-07-01 00:00:15,862 INFO [Thread-20] c.x.j.a.c.t.JobTriggerPoolHelper [JobTriggerPoolHelper.java : 107] >>>>>>>>> xxl-job trigger thread pool shutdown success.
+2019-07-01 00:00:15,863 INFO [xxl-job, admin JobRegistryMonitorHelper] c.x.j.a.c.t.JobRegistryMonitorHelper [JobRegistryMonitorHelper.java : 92] >>>>>>>>>>> xxl-job, job registry monitor thread stop
+2019-07-01 00:00:15,864 INFO [xxl-job, admin JobFailMonitorHelper] c.x.j.a.c.t.JobFailMonitorHelper [JobFailMonitorHelper.java : 96] >>>>>>>>>>> xxl-job, job fail monitor thread stop
+2019-07-01 00:00:15,912 INFO [Thread-20] c.alibaba.druid.pool.DruidDataSource [DruidDataSource.java : 1825] {dataSource-1} closed
