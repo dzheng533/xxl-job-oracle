@@ -16,6 +16,8 @@
 	</sql>
 
 	<select id="pageList" parameterType="java.util.HashMap" resultMap="XxlJobUser">
+	  SELECT <include refid="Base_Column_List" />  from (
+	  SELECT <include refid="Base_Column_List" /> ,rownum rn FROM (
 		SELECT <include refid="Base_Column_List" />
 		FROM xxl_job_user t
 		<trim prefix="WHERE" prefixOverrides="AND | OR" >
@@ -26,8 +28,8 @@
 				AND t.role = #{role}
 			</if>
 		</trim>
-		ORDER BY username ASC
-		<!-- LIMIT #{offset}, #{pagesize} -->
+		ORDER BY username ASC) )
+		WHERE rn <![CDATA[ > ]]> ${offset} and rn <![CDATA[ <= ]]> ${offset}+#{pagesize}
 	</select>
 
 	<select id="pageListCount" parameterType="java.util.HashMap" resultType="int">

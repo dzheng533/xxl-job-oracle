@@ -61,6 +61,8 @@
 	</sql>
 
 	<select id="pageList" parameterType="java.util.HashMap" resultMap="XxlJobInfo">
+	  SELECT <include refid="Base_Column_List" />  from (
+	  SELECT <include refid="Base_Column_List" /> ,rownum rn FROM (
 		SELECT <include refid="Base_Column_List" />
 		FROM xxl_job_info t
 		<trim prefix="WHERE" prefixOverrides="AND | OR" >
@@ -80,8 +82,8 @@
 				AND t.author like CONCAT(CONCAT('%', #{author}), '%')
 			</if>
 		</trim>
-		ORDER BY id DESC
-		<!-- LIMIT #{offset}, #{pagesize} -->
+		ORDER BY id DESC) )
+		WHERE rn <![CDATA[ > ]]> ${offset} and rn <![CDATA[ <= ]]> ${offset}+#{pagesize}
 	</select>
 
 	<select id="pageListCount" parameterType="java.util.HashMap" resultType="int">

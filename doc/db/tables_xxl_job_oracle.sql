@@ -119,11 +119,12 @@ create sequence seq_jobgroup;
 CREATE TABLE xxl_job_group (
   id numeric (11,0) PRIMARY KEY NOT NULL,
   app_name varchar2(64) NOT NULL ,
-  title varchar2(32) NOT NULL ,
+  title varchar2(64) NOT NULL ,
   "ORDER" numeric(4) DEFAULT 0 NOT NULL ,
   address_type numeric(4) DEFAULT 0 NOT NULL ,
   address_list varchar2(512) DEFAULT NULL
 ) ;
+COMMENT ON TABLE  xxl_job_group is '执行器定义表';
 COMMENT ON column xxl_job_group.app_name is '执行器AppName';
 COMMENT ON column xxl_job_group.title is '执行器名称';
 COMMENT ON column xxl_job_group."ORDER" is '排序';
@@ -141,10 +142,11 @@ CREATE TABLE xxl_job_user (
 
 CREATE UNIQUE INDEX  JOBUSER_USERNAME_UINDEX ON xxl_job_user(username);
 
+COMMENT ON TABLE xxl_job_user is '用户定义表';
 COMMENT ON COLUMN xxl_job_user.username is '账号';
-COMMENT ON COLUMN xxl_job_user.username is '密码';
-COMMENT ON COLUMN xxl_job_user.username is '角色：0-普通用户、1-管理员';
-COMMENT ON COLUMN xxl_job_user.username is '权限：执行器ID列表，多个逗号分割';
+COMMENT ON COLUMN xxl_job_user.password is '密码';
+COMMENT ON COLUMN xxl_job_user.role is '角色：0-普通用户、1-管理员';
+COMMENT ON COLUMN xxl_job_user.permission is '权限：执行器ID列表，多个逗号分割';
 
 
 CREATE TABLE xxl_job_lock (
@@ -152,6 +154,7 @@ CREATE TABLE xxl_job_lock (
 );
 COMMENT ON COLUMN xxl_job_lock.lock_name is '锁名称';
 
+--初始化数据
 INSERT INTO xxl_job_group(id, app_name, title, "ORDER", address_type, address_list) VALUES (SEQ_JOBGROUP.nextval, 'xxl-job-executor-sample', '示例执行器', 1, 0, NULL);
 INSERT INTO xxl_job_user(id, username, password, role, permission) VALUES (SEQ_JOBUSER.nextval, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1, NULL);
 INSERT INTO xxl_job_lock ( lock_name) VALUES ( 'schedule_lock');

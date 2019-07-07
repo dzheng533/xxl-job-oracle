@@ -28,10 +28,11 @@
 	</sql>
 	
 	<select id="pageList" resultMap="XxlJobLog">
-		select <include refid="Base_Column_List" /> from (
-		SELECT <include refid="Base_Column_List" /> ,rownum rn
-		FROM xxl_job_log
-		<trim prefix="WHERE" prefixOverrides="AND | OR" >
+	  SELECT <include refid="Base_Column_List" />  from (
+	  SELECT <include refid="Base_Column_List" /> ,rownum rn FROM (
+		SELECT <include refid="Base_Column_List" />
+		  FROM xxl_job_log
+		  <trim prefix="WHERE" prefixOverrides="AND | OR" >
 			<if test="jobId==0 and jobGroup gt 0">
 				AND job_group = #{jobGroup}
 			</if>
@@ -58,13 +59,12 @@
 				AND handle_code = 0
 			</if>
 		</trim>
-		ORDER BY trigger_time DESC )
-		<!--  LIMIT #{offset}, #{pagesize}  -->
+		ORDER BY trigger_time DESC ) )
+	  WHERE rn <![CDATA[ > ]]> ${offset} and rn <![CDATA[ <= ]]> ${offset}+#{pagesize}
 	</select>
 	
 	<select id="pageListCount" resultType="int">
-		SELECT count(1)
-		FROM xxl_job_log
+	  SELECT count(1) FROM xxl_job_log
 		<trim prefix="WHERE" prefixOverrides="AND | OR" >
 			<if test="jobId==0 and jobGroup gt 0">
 				AND job_group = #{jobGroup}
@@ -151,16 +151,6 @@
 	</select>
 
     <select id="triggerCountByDay" resultType="java.util.Map" >
-		<!--SELECT
-			DATE_FORMAT(trigger_time,'%Y-%m-%d') triggerDay,
-			COUNT(handle_code) triggerDayCount,
-			SUM(CASE WHEN (trigger_code in (0, 200) and handle_code = 0) then 1 else 0 end) triggerDayCountRunning,
-			SUM(CASE WHEN handle_code = 200 then 1 else 0 end) triggerDayCountSuc
-		FROM xxl_job_log
-		WHERE trigger_time BETWEEN #{from} and #{to}
-		GROUP BY triggerDay
-		ORDER BY triggerDay-->
-
 		SELECT triggerDay,
 		    COUNT(handle_code) triggerDayCount,
 		    SUM(CASE WHEN (trigger_code in (0, 200) and handle_code = 0) then 1 else 0 end) triggerDayCountRunning,
@@ -207,7 +197,7 @@
 		WHERE (
 			(trigger_code = 500 and handle_code = 0)
 			OR
-			(handle_code = 200)
+			(handle_code <![CDATA[ >= ]]> 500)
 		)
 		AND alarm_status = 0
 		ORDER BY id ASC
